@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class PaillierFrame extends javax.swing.JFrame {    
 
@@ -106,7 +107,11 @@ public class PaillierFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
    
-    private static final int CERTAINTY = 64;       // certainty with which primes are generated: 1-2^(-CERTAINTY)
+    
+    //BigInteger sınıfından asal sayı oluşturulurken kabul edilebilri hata payıdır
+    //(1 - 1/2^certainty) şeklinde hesaplanır
+    //Bu değeri düşük tutmamız asal olma olasılığını arttırır
+    private static final int CERTAINTY = 64;      
     private static int modSize;                  
     private static BigInteger p,q,lambda,n,n2,g,Mu;
     
@@ -187,8 +192,11 @@ public class PaillierFrame extends javax.swing.JFrame {
         
     //Metin Şifreleme
     private void ENCRYPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ENCRYPTActionPerformed
-                     
-        plainText=encText.getText();        
+        if (encText.getText().length()==0) {
+            JOptionPane.showMessageDialog(null, "BOŞ GEÇİLEMEZ");
+        }         
+        
+        plainText=encText.getText();              
         plainBigInt=new BigInteger(plainText.getBytes());  //Metini BigInteger tipine dönüştürür
         cipherPlain=encrypt(plainBigInt);                  //Metinin şifrelenmesi
                 
@@ -199,7 +207,12 @@ public class PaillierFrame extends javax.swing.JFrame {
     
     //Metin Şifre Çözme
     private void DECRYPTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DECRYPTActionPerformed
-        decPlain=decrypt(cipherPlain);        
+        try{
+        decPlain=decrypt(cipherPlain);  
+        }
+        catch(Exception e){
+           JOptionPane.showMessageDialog(null, "Önce Şifreleme Yapınız");
+        }
         decryptText=new String(decPlain.toByteArray());
         decText.setText(decryptText);
         lblCypher.setText("DECRYPTED TEXT");
