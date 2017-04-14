@@ -106,7 +106,10 @@ public class PaillierFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
    
-    private static final int CERTAINTY = 64;       // certainty with which primes are generated: 1-2^(-CERTAINTY)
+    //BigInteger sınıfından asal sayı oluşturulurken kabul edilebilri hata payıdır
+    //(1 - 1/2^certainty) şeklinde hesaplanır
+    //Bu değeri düşük tutmamız asal olma olasılığını arttırır
+    private static final int CERTAINTY = 64;      
     private static int modSize;                  
     private static BigInteger p,q,lambda,n,n2,g,Mu;
     
