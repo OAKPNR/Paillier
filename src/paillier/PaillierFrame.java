@@ -107,7 +107,7 @@ public class PaillierFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
    
-    
+
     //BigInteger sınıfından asal sayı oluşturulurken kabul edilebilri hata payıdır
     //(1 - 1/2^certainty) şeklinde hesaplanır
     //Bu değeri düşük tutmamız asal olma olasılığını arttırır
